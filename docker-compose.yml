@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:6.0-ubuntu-latest
+    container_name: zabbix-agent
+    restart: always
+    environment:
+      ZBX_SERVER_HOST: 172.16.48.212
+      ZBX_HOSTNAME: 10.8.0.28
+      ZBX_SERVER_ACTIVE: 172.16.48.212
+    ports:
+      - "10150:10050"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /:/hostfs:ro
+    privileged: true
