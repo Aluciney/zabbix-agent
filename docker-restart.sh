@@ -6,7 +6,9 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-CONTAINER=$1
+TRIGGER_NAME="$1"
+
+CONTAINER=$(echo "$TRIGGER_NAME" | awk -F'/' '{print $2}' | awk -F':' '{print $1}' | xargs)
 
 # Verifica se o container existe
 if ! docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER$"; then
